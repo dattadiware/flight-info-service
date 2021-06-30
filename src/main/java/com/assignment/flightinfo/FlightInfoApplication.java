@@ -1,4 +1,4 @@
-package com.assignment.flightinfoservice;
+package com.assignment.flightinfo;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -16,22 +16,23 @@ import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ErrorHandler;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.assignment.flightinfoservice.model.FlightInfo;
-import com.assignment.flightinfoservice.service.FlightInfoService;
+import com.assignment.flightinfo.model.FlightInfo;
+import com.assignment.flightinfo.service.FlightInfoService;
 
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @SpringBootApplication
-public class FlightInfoServiceApplication {
+public class FlightInfoApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(FlightInfoServiceApplication.class, args);
+    SpringApplication.run(FlightInfoApplication.class, args);
   }
 
   @Configuration
@@ -59,13 +60,14 @@ public class FlightInfoServiceApplication {
     public Mono<ServerResponse> getFlightInfo(ServerRequest serverRequest) {
 
       return ok().contentType(MediaType.APPLICATION_JSON)
+    	  
           .body(
               service.getFlightInfo(
                   LocalDate.parse(serverRequest.pathVariable("date")),
                   serverRequest.pathVariable("airportId"),
                   LocalTime.parse(serverRequest.pathVariable("arrivalTime")),
                   LocalTime.parse(serverRequest.pathVariable("departureTime"))),
-              FlightInfo.class);
+              FlightInfo.class).onErrorResume(error -> ServerResponse.status(500).build());
     }
   }
 

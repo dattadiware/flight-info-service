@@ -1,4 +1,4 @@
-package com.assignment.flightinfoservice;
+package com.assignment.flightinfo.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,14 +16,14 @@ import org.mockserver.model.MediaType;
 import org.mockserver.verify.VerificationTimes;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.assignment.flightinfoservice.service.FlightInfoService;
+import com.assignment.flightinfo.service.FlightInfoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.netty.handler.codec.http.HttpMethod;
 import reactor.test.StepVerifier;
 
 @ExtendWith(MockServerExtension.class)
-public class FlightServiceTest {
+public class FlightInfoServiceTest {
 
   private ClientAndServer mockServer;
 

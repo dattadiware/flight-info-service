@@ -1,4 +1,4 @@
-package com.assignment.flightinfoservice.model;
+package com.assignment.flightinfo.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.assignment.flightinfoservice.model;
+package com.assignment.flightinfo.model;
 
 import lombok.Builder;
 import lombok.Data;

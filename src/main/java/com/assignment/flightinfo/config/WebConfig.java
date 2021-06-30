@@ -1,4 +1,4 @@
-package com.assignment.flightinfoservice.config;
+package com.assignment.flightinfo.config;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
