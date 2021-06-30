@@ -1,5 +1,6 @@
 package com.assignment.flightinfo.web;
 
+import static org.springframework.web.reactive.function.server.ServerResponse.notFound;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 import java.time.LocalDate;
@@ -35,8 +36,10 @@ public class FlightInfoHandler {
    */
   
   public Mono<ServerResponse> getFlightInfo(ServerRequest serverRequest) {
-
+	  
+	
     return ok().contentType(MediaType.APPLICATION_JSON)
+        
         .body(
             service.getFlightInfo(
                 LocalDate.parse(serverRequest.pathVariable("date")),
@@ -44,6 +47,9 @@ public class FlightInfoHandler {
                 LocalTime.parse(serverRequest.pathVariable("arrivalTime")),
                 LocalTime.parse(serverRequest.pathVariable("departureTime"))),
             FlightInfo.class)
-        .onErrorResume(error -> ServerResponse.status(500).build());
+        
+        .switchIfEmpty(notFound().build())
+        .onErrorResume(error -> ServerResponse.badRequest().build());
+        
   }
 }

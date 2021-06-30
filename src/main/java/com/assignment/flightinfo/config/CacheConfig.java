@@ -12,26 +12,26 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 
 @Configuration
 public class CacheConfig {
-	
-@Value("${cache.maximum.size}")
-private Integer maxCacheSize ;
 
-@Value("${cache.initial.size}")
-private Integer initialCacheSize ;
+  @Value("${cache.maximum.size}")
+  private Integer maxCacheSize;
 
- @Bean
- public CacheManager cacheManager() {
-  CaffeineCacheManager cacheManager = new CaffeineCacheManager("flightinfo");
-  cacheManager.setCaffeine(caffeineCacheBuilder());
-  return cacheManager;
- }
+  @Value("${cache.initial.size}")
+  private Integer initialCacheSize;
 
- Caffeine < Object, Object > caffeineCacheBuilder() {
-  return Caffeine.newBuilder()
-   .initialCapacity(100)
-   .maximumSize(initialCacheSize)
-   .expireAfterAccess(24, TimeUnit.HOURS)
-   .weakKeys()
-   .recordStats();
- }
+  @Bean
+  public CacheManager cacheManager() {
+    CaffeineCacheManager cacheManager = new CaffeineCacheManager("flightinfo");
+    cacheManager.setCaffeine(caffeineCacheBuilder());
+    return cacheManager;
+  }
+
+  public Caffeine<Object, Object> caffeineCacheBuilder() {
+    return Caffeine.newBuilder()
+        .initialCapacity(100)
+        .maximumSize(initialCacheSize)
+        .expireAfterAccess(24, TimeUnit.HOURS)
+        .weakKeys()
+        .recordStats();
+  }
 }

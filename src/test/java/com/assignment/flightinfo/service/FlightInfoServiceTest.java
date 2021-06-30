@@ -16,7 +16,6 @@ import org.mockserver.model.MediaType;
 import org.mockserver.verify.VerificationTimes;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.assignment.flightinfo.service.FlightInfoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.netty.handler.codec.http.HttpMethod;
