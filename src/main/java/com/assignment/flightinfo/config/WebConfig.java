@@ -13,8 +13,19 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import reactor.netty.http.client.HttpClient;
 
+/**
+ * WebCLient configuration
+ * @author datta
+ *
+ */
+
 @Configuration
 public class WebConfig {
+	
+/**
+ * Create webClient
+ * @return
+ */
 
   @Bean("webClient")
   WebClient webClient() {

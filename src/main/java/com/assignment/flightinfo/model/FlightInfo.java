@@ -5,8 +5,15 @@ import java.util.List;
 
 import lombok.Data;
 
+/**
+ * Flight information
+ * @author datta
+ *
+ */
+
 @Data
 public class FlightInfo {
+	
 	
 	private List<String> flightNumbers = new ArrayList<>();
 	

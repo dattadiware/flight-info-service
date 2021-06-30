@@ -1,10 +1,7 @@
 package com.assignment.flightinfo;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
-import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +12,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.util.ErrorHandler;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.assignment.flightinfo.model.FlightInfo;
-import com.assignment.flightinfo.service.FlightInfoService;
+import com.assignment.flightinfo.web.FlightInfoHandler;
 
-import lombok.AllArgsConstructor;
-import reactor.core.publisher.Mono;
+/**
+ * Flight information reactive service
+ * @author datta
+ *
+ */
 
 @SpringBootApplication
 public class FlightInfoApplication {
@@ -51,26 +48,7 @@ public class FlightInfoApplication {
     }
   }
 
-  @Component
-  @AllArgsConstructor
-  static class FlightInfoHandler {
-
-    private final FlightInfoService service;
-
-    public Mono<ServerResponse> getFlightInfo(ServerRequest serverRequest) {
-
-      return ok().contentType(MediaType.APPLICATION_JSON)
-    	  
-          .body(
-              service.getFlightInfo(
-                  LocalDate.parse(serverRequest.pathVariable("date")),
-                  serverRequest.pathVariable("airportId"),
-                  LocalTime.parse(serverRequest.pathVariable("arrivalTime")),
-                  LocalTime.parse(serverRequest.pathVariable("departureTime"))),
-              FlightInfo.class).onErrorResume(error -> ServerResponse.status(500).build());
-    }
-  }
-
+  
   @Configuration(proxyBeanMethods = false)
   class DateFormatConfiguration {
 
