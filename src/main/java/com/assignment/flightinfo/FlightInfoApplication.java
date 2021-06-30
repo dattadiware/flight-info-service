@@ -1,7 +1,5 @@
 package com.assignment.flightinfo;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
-
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.FormattingConversionService;
-import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -41,7 +38,6 @@ public class FlightInfoApplication {
       return RouterFunctions.route()
           .GET(
               "/flight/{date}/{airportId}/{arrivalTime}/{departureTime}",
-              accept(MediaType.APPLICATION_JSON),
               request -> ServerResponse.ok().body(handler.getFlightInfo(request), FlightInfo.class))
           
           .build();
