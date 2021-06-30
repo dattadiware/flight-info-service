@@ -41,7 +41,7 @@ public class FlightInfoApplication {
       return RouterFunctions.route()
           .GET(
               "/flight/{date}/{airportId}/{arrivalTime}/{departureTime}",
-              accept(MediaType.TEXT_PLAIN),
+              accept(MediaType.APPLICATION_JSON),
               request -> ServerResponse.ok().body(handler.getFlightInfo(request), FlightInfo.class))
           
           .build();
