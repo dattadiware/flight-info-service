@@ -16,6 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import com.assignment.flightinfo.model.FlightInfo;
 import com.assignment.flightinfo.service.FlightInfoService;
 import com.assignment.flightinfo.utils.TestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -50,6 +51,9 @@ public class FlightInfoHanlerTest {
                     .build(LocalDate.now(), "airport", LocalTime.now(), LocalTime.now()))
         .exchange()
         .expectStatus()
-        .isOk();
+        .isOk()
+        .expectBodyList(FlightInfo.class);
+    
+    
   }
 }
