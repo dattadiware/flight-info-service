@@ -56,20 +56,17 @@ public class FlightInfoService {
             getSourceFiveFlightInfo(date, airportId, arrival, departure))
         .map(
             o -> {
-              return FlightInfo.builder().flightNumbers(
+              return FlightInfo.builder()
+                  .flightNumbers(
                       Arrays.asList(
-                              o.getT1().getFlightNumber(),
-                              o.getT2().getFlightNumber(),
-                              o.getT3().getFlightNumber(),
-                              o.getT4().getFlightNumber(),
-                              o.getT5().getFlightNumber())).build();
-
-             
-
-             
+                          o.getT1().getFlightNumber(),
+                          o.getT2().getFlightNumber(),
+                          o.getT3().getFlightNumber(),
+                          o.getT4().getFlightNumber(),
+                          o.getT5().getFlightNumber()))
+                  .build();
             })
         .onErrorContinue(null);
-        
   }
 
   /**

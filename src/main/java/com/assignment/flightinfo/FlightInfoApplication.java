@@ -5,23 +5,15 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.FormattingConversionService;
-import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.RouterFunctions;
-import org.springframework.web.reactive.function.server.ServerResponse;
-
-import com.assignment.flightinfo.model.FlightInfo;
-import com.assignment.flightinfo.web.FlightInfoHandler;
 
 /**
  * Flight information reactive service
- * @author datta
  *
+ * @author datta
  */
-
 @SpringBootApplication
 public class FlightInfoApplication {
 
@@ -29,22 +21,6 @@ public class FlightInfoApplication {
     SpringApplication.run(FlightInfoApplication.class, args);
   }
 
-  @Configuration
-  static class RouterConfig {
-
-    @Bean
-    public RouterFunction<ServerResponse> timerRouterRunction(FlightInfoHandler handler) {
-
-      return RouterFunctions.route()
-          .GET(
-              "/flight/{date}/{airportId}/{arrivalTime}/{departureTime}",
-              request -> ServerResponse.ok().body(handler.getFlightInfo(request), FlightInfo.class))
-          
-          .build();
-    }
-  }
-
-  
   @Configuration(proxyBeanMethods = false)
   class DateFormatConfiguration {
 

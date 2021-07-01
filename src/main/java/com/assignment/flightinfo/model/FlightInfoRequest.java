@@ -10,7 +10,7 @@ import lombok.Getter;
 @Data
 @Builder
 @Getter
-public class FlightInfoRequestDTO {
+public class FlightInfoRequest {
 
   private LocalDate date;
   private String airportId;

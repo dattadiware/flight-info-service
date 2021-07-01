@@ -1,0 +1,9 @@
+{
+	"pricerules": [
+		{
+			"source": "MUM",
+			"destination": "DUB",
+			"RULE": "CAN NOT BE CANCELLED"
+		}
+	]
+}

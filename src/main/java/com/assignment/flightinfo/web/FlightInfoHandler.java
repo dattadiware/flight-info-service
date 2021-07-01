@@ -17,12 +17,7 @@ import com.assignment.flightinfo.service.FlightInfoService;
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
 
-/**
- * 
- * @author datta
- *
- */
-
+/** @author datta */
 @Component
 @AllArgsConstructor
 public class FlightInfoHandler {
@@ -30,16 +25,16 @@ public class FlightInfoHandler {
   private final FlightInfoService service;
 
   /**
-   * Return Flight information 
+   * Return Flight information
+   *
    * @param serverRequest
    * @return
    */
-  
   public Mono<ServerResponse> getFlightInfo(ServerRequest serverRequest) {
 	  
-	
+	  
+
     return ok().contentType(MediaType.APPLICATION_JSON)
-        
         .body(
             service.getFlightInfo(
                 LocalDate.parse(serverRequest.pathVariable("date")),
@@ -47,9 +42,7 @@ public class FlightInfoHandler {
                 LocalTime.parse(serverRequest.pathVariable("arrivalTime")),
                 LocalTime.parse(serverRequest.pathVariable("departureTime"))),
             FlightInfo.class)
-        
         .switchIfEmpty(notFound().build())
         .onErrorResume(error -> ServerResponse.badRequest().build());
-        
   }
 }
