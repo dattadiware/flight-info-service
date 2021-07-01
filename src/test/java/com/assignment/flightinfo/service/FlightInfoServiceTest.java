@@ -16,6 +16,7 @@ import org.mockserver.model.MediaType;
 import org.mockserver.verify.VerificationTimes;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.assignment.flightinfo.model.FlightInfoRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.netty.handler.codec.http.HttpMethod;
@@ -78,15 +79,18 @@ public class FlightInfoServiceTest {
                 .withContentType(MediaType.APPLICATION_JSON)
                 .withDelay(TimeUnit.MILLISECONDS, 500));
 
-    LocalDate date = LocalDate.of(2021, 11, 01);
-    String airportId = "DUB";
-    LocalTime arrivalTime = LocalTime.of(10, 20, 30);
-    LocalTime departureTime = LocalTime.of(11, 20, 30);
+    FlightInfoRequest requestData =
+        FlightInfoRequest.builder()
+            .date(LocalDate.of(2021, 11, 01))
+            .airportId("DUB")
+            .arrivalTime(LocalTime.of(10, 20, 30))
+            .departureTime(LocalTime.of(11, 20, 30))
+            .build();
 
-    StepVerifier.create(this.service.getFlightInfo(date, airportId, arrivalTime, departureTime))
+    StepVerifier.create(this.service.getFlightInfo(requestData))
         .expectNextMatches(mergedCallsDTO -> 3 == mergedCallsDTO.getFlightNumbers().size())
         .verifyComplete();
-    
+
     this.mockServer.verify(expectedFirstRequest, VerificationTimes.once());
     this.mockServer.verify(expectedTwoRequest, VerificationTimes.once());
   }

@@ -37,9 +37,6 @@ public class FlightInfoHanlerTest {
   public void given_valid_input_should_return_ok() throws JsonProcessingException {
 
     when(service.getFlightInfo(
-            ArgumentMatchers.any(),
-            ArgumentMatchers.any(),
-            ArgumentMatchers.any(),
             ArgumentMatchers.any()))
         .thenReturn(Mono.just(TestUtils.mockFlightInfo()));
 

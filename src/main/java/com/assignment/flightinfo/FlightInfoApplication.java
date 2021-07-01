@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.FormattingConversionService;
@@ -15,6 +16,7 @@ import org.springframework.format.support.FormattingConversionService;
  * @author datta
  */
 @SpringBootApplication
+@EnableConfigurationProperties
 public class FlightInfoApplication {
 
   public static void main(String[] args) {

@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.assignment.flightinfo.model.FlightInfo;
+import com.assignment.flightinfo.model.FlightInfoRequest;
 import com.assignment.flightinfo.service.FlightInfoService;
 
 import lombok.AllArgsConstructor;
@@ -32,15 +33,17 @@ public class FlightInfoHandler {
    */
   public Mono<ServerResponse> getFlightInfo(ServerRequest serverRequest) {
 	  
-	  
+	    FlightInfoRequest requestData =
+	            FlightInfoRequest.builder()
+	                .date(LocalDate.parse(serverRequest.pathVariable("date")))
+	                .airportId(serverRequest.pathVariable("airportId"))
+	                .arrivalTime(LocalTime.parse(serverRequest.pathVariable("arrivalTime")))
+	                .departureTime(LocalTime.parse(serverRequest.pathVariable("departureTime")))
+	                .build();
 
     return ok().contentType(MediaType.APPLICATION_JSON)
         .body(
-            service.getFlightInfo(
-                LocalDate.parse(serverRequest.pathVariable("date")),
-                serverRequest.pathVariable("airportId"),
-                LocalTime.parse(serverRequest.pathVariable("arrivalTime")),
-                LocalTime.parse(serverRequest.pathVariable("departureTime"))),
+            service.getFlightInfo(requestData),
             FlightInfo.class)
         .switchIfEmpty(notFound().build())
         .onErrorResume(error -> ServerResponse.badRequest().build());

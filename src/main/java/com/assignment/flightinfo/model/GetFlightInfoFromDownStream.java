@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SourceOne {
+public class GetFlightInfoFromDownStream {
 	
 	private String flightNumber ;
 	

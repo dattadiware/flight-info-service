@@ -5,11 +5,9 @@ import java.time.LocalTime;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 @Builder
-@Getter
 public class FlightInfoRequest {
 
   private LocalDate date;
